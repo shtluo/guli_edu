@@ -1,4 +1,4 @@
-package cn.guliedu.config;
+package cn.guliedu.eduservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

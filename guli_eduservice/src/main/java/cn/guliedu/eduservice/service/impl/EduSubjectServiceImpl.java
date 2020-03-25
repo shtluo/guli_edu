@@ -192,32 +192,6 @@ public class EduSubjectServiceImpl extends ServiceImpl<EduSubjectMapper, EduSubj
         }
     }
 
-    //添加一级分类
-    @Override
-    public boolean addOneSubject(EduSubject eduSubject) {
-        //判断一级分类是否存在
-        EduSubject existEduSubject = this.existOneSubject(eduSubject.getTitle());
-        if(existEduSubject == null) {
-            //添加
-            eduSubject.setParentId("0");//一级分类parentid值是0
-            int insert = baseMapper.insert(eduSubject);
-            return insert>0;
-        }
-        return false;
-    }
-
-    //添加二级分类
-    @Override
-    public boolean addTwoSubject(EduSubject eduSubject) {
-        //判断二级分类是否存在
-        EduSubject existEduSubject = this.existTwoSubject(eduSubject.getTitle(), eduSubject.getParentId());
-        if(existEduSubject == null) {
-            int insert = baseMapper.insert(eduSubject);
-            return insert>0;
-        }
-        return false;
-    }
-
     //判断一级分类是否存在
     //参数：一级分类名称
     private EduSubject existOneSubject(String oneSubjectName) {

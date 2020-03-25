@@ -2,7 +2,6 @@ package cn.guliedu.eduservice.controller;
 
 
 import cn.guliedu.common.R;
-import cn.guliedu.eduservice.entity.EduSubject;
 import cn.guliedu.eduservice.entity.dto.OneSubjetDto;
 import cn.guliedu.eduservice.service.EduSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,28 +26,6 @@ public class EduSubjectController {
 
     @Autowired
     private EduSubjectService subjectService;
-
-    //添加一级分类
-    @PostMapping("saveOneSubject")
-    public R saveOneSubject(@RequestBody EduSubject eduSubject) {
-        boolean flag = subjectService.addOneSubject(eduSubject);
-        if(flag) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
-    }
-
-    //添加二级分类
-    @PostMapping("saveTwoSubject")
-    public R saveTwoSubject(@RequestBody EduSubject eduSubject) {
-        boolean flag = subjectService.addTwoSubject(eduSubject);
-        if(flag) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
-    }
 
     //删除分类的方法
     @DeleteMapping("{id}")

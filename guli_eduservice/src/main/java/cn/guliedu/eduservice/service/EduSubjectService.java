@@ -25,10 +25,4 @@ public interface EduSubjectService extends IService<EduSubject> {
 
     //删除分类的方法
     boolean removeSubject(String id);
-
-    //添加一级分类
-    boolean addOneSubject(EduSubject eduSubject);
-
-    //添加二级分类
-    boolean addTwoSubject(EduSubject eduSubject);
 }

@@ -1,5 +1,6 @@
 package cn.guliedu.eduservice.service;
 
+import cn.guliedu.common.result.CommResult;
 import cn.guliedu.eduservice.entity.EduTeacher;
 import cn.guliedu.eduservice.entity.vo.QueryTeacher;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,5 +17,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface EduTeacherService extends IService<EduTeacher> {
 
-    IPage getConditonTeacherList(Page<EduTeacher> pageTeacher, QueryTeacher queryTeacher);
+    IPage getConditonTeacherList(Long pageNum,Long pageSize, QueryTeacher queryTeacher);
+
+    CommResult updateTeacherInfo(EduTeacher eduTeacher);
+
+    CommResult saveTeacher(EduTeacher eduTeacher);
 }

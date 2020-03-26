@@ -1,6 +1,7 @@
 package cn.guliedu.eduservice.handler;
 
 import cn.guliedu.common.R;
+import cn.guliedu.common.result.CommResult;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -11,9 +12,9 @@ public class GlobalExceptionHandler {
     //全局异常
     @ExceptionHandler(Exception.class) //异常处理器
     @ResponseBody //返回统一结果数据
-    public R error(Exception e) {
+    public CommResult error(Exception e) {
         e.printStackTrace();
-        return R.error().message("出错了!!");
+        return CommResult.error("出错了!!");
     }
 
     //特殊异常

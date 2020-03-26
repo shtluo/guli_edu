@@ -6,6 +6,7 @@ import cn.guliedu.common.result.CommResult;
 import cn.guliedu.eduservice.entity.EduTeacher;
 import cn.guliedu.eduservice.entity.vo.QueryTeacher;
 import cn.guliedu.eduservice.service.EduTeacherService;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,13 +35,11 @@ public class EduTeacherController {
 
     @GetMapping("login")
     public R login() {
-        //返回  {"code":20000,"data":{"token":"admin"}}
         return R.ok().data("token", "admin");
     }
 
     @GetMapping("info")
     public R info() {
-        //{"code":20000,"data":{"roles":["admin"],"name":"admin","avatar":"https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"}}
         return R.ok().data("roles", "[admin]").data("name", "admin").data("avatar", "https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
     }
 
@@ -51,12 +50,12 @@ public class EduTeacherController {
     }
 
     @DeleteMapping("{id}")
-    public R deleteTeacherId(@PathVariable String id) {
+    public CommResult deleteTeacherId(@PathVariable String id) {
         boolean flag = teacherService.removeById(id);
         if (flag) {
-            return R.ok();
+            return CommResult.ok();
         } else {
-            return R.error();
+            return CommResult.error("删除失败!");
         }
     }
 
@@ -72,24 +71,18 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("rows", records);
     }
 
-    @ApiOperation(value = "TE01 我的文件-分享链接 状态：已完成",notes = "返回分享ID，可根据分享ID查询分享链接")
+    @ApiOperation(value = "TE01 讲师列表 状态：已完成")
     @PostMapping("getTeacherPageCondition/{pageNum}/{pageSize}")
-    public CommResult getTeacherPageCondition(@ApiParam(value = "当前页") @PathVariable long pageNum,
-                                              @ApiParam(value = "步长") @PathVariable long pageSize,
-                                              @RequestBody(required = false) QueryTeacher queryTeacher) {
-        Page<EduTeacher> pageTeacher = new Page<>(pageNum, pageSize);
-        return CommResult.ok(teacherService.getConditonTeacherList(pageTeacher, queryTeacher));
+    public CommResult<IPage> getTeacherPageCondition(@ApiParam(value = "当前页") @PathVariable long pageNum,
+                                                     @ApiParam(value = "步长") @PathVariable long pageSize,
+                                                     @RequestBody(required = false) QueryTeacher queryTeacher) {
+        return CommResult.ok(teacherService.getConditonTeacherList(pageNum,pageSize, queryTeacher));
     }
 
-    //5 添加讲师
+    @ApiOperation(value = "TE02 添加讲师 状态：已完成")
     @PostMapping("addTeacher")
-    public R saveTeacher(@RequestBody EduTeacher eduTeacher) {
-        boolean save = teacherService.save(eduTeacher);
-        if (save) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
+    public CommResult saveTeacher(@RequestBody EduTeacher eduTeacher) {
+        return teacherService.saveTeacher(eduTeacher);
     }
 
     //6 根据讲师id查询
@@ -99,15 +92,10 @@ public class EduTeacherController {
         return R.ok().data("teacher", eduTeacher);
     }
 
-    //7 修改讲师的方法
-    @PostMapping("updateTeacher")
-    public R updateTeacherInfo(@RequestBody EduTeacher eduTeacher) {
-        boolean flag = teacherService.updateById(eduTeacher);
-        if (flag) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
+    @ApiOperation(value = "TE03 修改讲师 状态：已完成")
+    @PutMapping("updateTeacher")
+    public CommResult updateTeacherInfo(@RequestBody EduTeacher eduTeacher) {
+        return teacherService.updateTeacherInfo(eduTeacher);
     }
 }
 

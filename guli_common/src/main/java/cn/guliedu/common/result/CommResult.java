@@ -15,10 +15,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class CommResult<T> implements Serializable {
 
-	@ApiModelProperty("0成功 1失败 401未登录或无权限")
+	@ApiModelProperty("20000成功 20001失败 401未登录或无权限")
 	public int code;
 
-	@ApiModelProperty("code为1时为错误信息内容")
+	@ApiModelProperty("code为20001时为错误信息内容")
 	public String message;
 
 	@ApiModelProperty("返回对象内容")
@@ -36,6 +36,10 @@ public class CommResult<T> implements Serializable {
     public static CommResult ok(Object content){
         return new CommResult(ResultCodeEnum.OK.getValue(),ResultCodeEnum.OK.getText(),content);
     }
+
+	public static CommResult error(){
+		return new CommResult(ResultCodeEnum.ERROR.getValue(),ResultCodeEnum.ERROR.getText());
+	}
 
     public static CommResult error(String errormsg){
         return new CommResult(ResultCodeEnum.ERROR.getValue(),errormsg);

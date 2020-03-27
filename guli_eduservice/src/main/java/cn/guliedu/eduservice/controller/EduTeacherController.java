@@ -85,11 +85,11 @@ public class EduTeacherController {
         return teacherService.saveTeacher(eduTeacher);
     }
 
-    //6 根据讲师id查询
+    @ApiOperation(value = "TE04 讲师修改回显 状态：已完成")
     @GetMapping("{id}")
-    public R getTeacherId(@PathVariable String id) {
+    public CommResult<EduTeacher> getTeacherId(@ApiParam(value = "讲师id") @PathVariable String id) {
         EduTeacher eduTeacher = teacherService.getById(id);
-        return R.ok().data("teacher", eduTeacher);
+        return CommResult.ok(eduTeacher);
     }
 
     @ApiOperation(value = "TE03 修改讲师 状态：已完成")
